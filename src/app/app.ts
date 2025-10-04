@@ -1,15 +1,31 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ProductStore } from './product-store';
+import { ProductCard, ProductPaginator, ProductStore } from './product';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ProductCard, ProductPaginator],
   providers: [ProductStore],
   selector: 'app-root',
+  styles: `
+    :host {
+      display: grid;
+      row-gap: 16px;
+      place-content: center;
+      justify-items: center;
+
+      .error {
+        color: var(--color-error);
+      }
+    }
+  `,
   template: `
+    <app-product-paginator />
     @if (product.loading()) {
-      Loading...
+      <p>Loading...</p>
+    } @else if (product.error()) {
+      <p class="error">{{ product.error()?.message }}</p>
     } @else if (product.value(); as product) {
-      {{ product.title }} - {{ product.price }}$
+      <app-product-card [product]="product" />
     }
   `,
 })

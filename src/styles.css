@@ -1,1 +1,103 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+
+  --color-outline: hsl(0 0 80);
+  --color-primary: hsl(220 50 50);
+  --color-error: hsl(0 80 40);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+menu {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+}
+
+body {
+  padding: 2rem;
+}
+
+button {
+  background: none;
+  border: none;
+  border-radius: 9999px;
+  block-size: 38px;
+  color: var(--color, hsl(0 0 20));
+  cursor: pointer;
+  transition: background 0.15s ease-in-out;
+
+  &.primary {
+    --color: var(--color-primary);
+  }
+
+  &.danger {
+    --color: var(--color-error);
+  }
+
+  &:not(:has(.material-symbols-outlined:only-child)) {
+    padding-inline: 16px;
+
+    &:hover {
+      background: hsl(from var(--color) h s 95);
+    }
+  }
+
+  &:has(.material-symbols-outlined:only-child) {
+    display: inline grid;
+    place-content: center;
+    background: var(--color-outline);
+    aspect-ratio: 1;
+
+    &.small {
+      block-size: 28px;
+      border-radius: 8px;
+
+      .material-symbols-outlined {
+        font-variation-settings: 'opsz' 20;
+      }
+    }
+
+    &:hover:not(:disabled) {
+      background: hsl(from var(--color-outline) h s calc(l - 10));
+    }
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: default;
+  }
+}
+
+input,
+textarea {
+  font: inherit;
+  border: 1px solid var(--color-outline);
+  border-radius: 6px;
+  padding: 6px 12px;
+  resize: none;
+
+  &[type='number'] {
+    inline-size: 96px;
+  }
+}
+
+dialog {
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
+  translate: -50% -50%;
+
+  border-radius: 12px;
+  border: 2px solid var(--color-outline);
+  padding: 16px 24px;
+  min-inline-size: 320px;
+
+  menu {
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
